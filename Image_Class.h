@@ -33,6 +33,7 @@
 #include <exception>
 
 
+
 /**
  * @class Image
  * @brief Represents an image with functionalities for loading, saving, and manipulating pixels.
@@ -147,6 +148,7 @@ public:
 
         for (int i = 0; i < image.width * image.height * this->channels; i++) {
             this->imageData[i] = image.imageData[i];
+            
         }
 
         return *this;
