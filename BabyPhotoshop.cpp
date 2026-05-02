@@ -200,7 +200,7 @@ void Frame(int thickness, int R, int G, int B)
     {
         for (int j = 0; j < img.height; j++)
         {
-            if (i <= thickness || i >= img.width - thickness || j <= thickness || j >= img.height - thickness)
+            if (i < thickness || i >= img.width - thickness || j < thickness || j >= img.height - thickness)
             {
                 img(i, j, 0) = R;
                 img(i, j, 1) = G;
@@ -458,23 +458,36 @@ void Crop()
 // Blur Filter
 void blur(int times)
 {
+    if (times <= 0)
+    {
+        cout << "Invalid blur strength.\n";
+        return;
+    }
+
+    if (img.width < 5 || img.height < 5)
+    {
+        cout << "Image is too small for blur.\n";
+        return;
+    }
+
     Image img2 = img;
 
     for (int repeat = 0; repeat < times; repeat++)
     {
+        img2 = img;
         for (int i = 2; i < img.width - 2; i++)
         {
             for (int j = 2; j < img.height - 2; j++)
             {
-                for (int k = 0; k < img.channels; k++)
+                for (int k = 0; k < 3; k++)
                 {
                     int sum = 0;
 
-                    for (int c = -2; c <= 2; c++)
+                    for (int dx = -2; dx <= 2; dx++)
                     {
-                        for (int w = -2; w <= 2; w++)
+                        for (int dy = -2; dy <= 2; dy++)
                         {
-                            sum += img2(i + c, j + w, k);
+                            sum += img2(i + dx, j + dy, k);
                         }
                     }
 
@@ -482,8 +495,6 @@ void blur(int times)
                 }
             }
         }
-
-        img2 = img;
     }
 
     cout << "Blur filter applied successfully.\n";
