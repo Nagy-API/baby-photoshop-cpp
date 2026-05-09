@@ -934,67 +934,101 @@ Window {
         id: exportDialog
         modal: true
         standardButtons: Dialog.NoButton
-        width: 520
+        width: Math.min(680, root.width - 80)
+        height: 285
         padding: 0
         x: (root.width - width) / 2
-        y: (root.height - implicitHeight) / 2
+        y: (root.height - height) / 2
 
         background: Rectangle {
             radius: 26
             color: "#121645"
             border.color: accentPink
             border.width: 1
+            clip: true
 
             Rectangle {
-                width: 260
-                height: 260
-                radius: 130
+                width: 280
+                height: 280
+                radius: 140
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.rightMargin: -110
-                anchors.topMargin: -130
+                anchors.rightMargin: -120
+                anchors.topMargin: -135
                 color: accentPink
-                opacity: 0.10
+                opacity: 0.09
+            }
+
+            Rectangle {
+                width: 220
+                height: 220
+                radius: 110
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: -120
+                anchors.bottomMargin: -110
+                color: accentCyan
+                opacity: 0.04
             }
         }
 
         contentItem: ColumnLayout {
             anchors.fill: parent
-            anchors.margins: 22
-            spacing: 16
+            anchors.margins: 26
+            spacing: 18
 
             Text {
                 text: "Export Image"
                 color: textMain
-                font.pixelSize: 24
+                font.pixelSize: 28
                 font.bold: true
                 Layout.fillWidth: true
             }
 
             Text {
-                text: "Choose the final format, then select the save location."
+                text: "Choose the final format, then select where to save your edited image."
                 color: textSoft
-                font.pixelSize: 13
+                font.pixelSize: 15
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
             }
 
             RowLayout {
                 Layout.fillWidth: true
-                spacing: 12
+                spacing: 14
 
-                PixoraPillButton { textValue: "PNG"; active: exportFormat === "png"; onClicked: exportFormat = "png" }
-                PixoraPillButton { textValue: "JPG"; active: exportFormat === "jpg"; onClicked: exportFormat = "jpg" }
-                PixoraPillButton { textValue: "BMP"; active: exportFormat === "bmp"; onClicked: exportFormat = "bmp" }
+                PixoraPillButton {
+                    textValue: "PNG"
+                    active: exportFormat === "png"
+                    Layout.preferredHeight: 48
+                    onClicked: exportFormat = "png"
+                }
+
+                PixoraPillButton {
+                    textValue: "JPG"
+                    active: exportFormat === "jpg"
+                    Layout.preferredHeight: 48
+                    onClicked: exportFormat = "jpg"
+                }
+
+                PixoraPillButton {
+                    textValue: "BMP"
+                    active: exportFormat === "bmp"
+                    Layout.preferredHeight: 48
+                    onClicked: exportFormat = "bmp"
+                }
             }
+
+            Item { Layout.fillHeight: true }
 
             RowLayout {
                 Layout.fillWidth: true
-                spacing: 12
+                spacing: 14
 
                 PixoraPillButton {
                     textValue: "Continue"
                     active: true
+                    Layout.preferredHeight: 48
                     onClicked: {
                         exportDialog.close()
                         openSaveDialogWithFormat()
@@ -1003,6 +1037,7 @@ Window {
 
                 PixoraPillButton {
                     textValue: "Cancel"
+                    Layout.preferredHeight: 48
                     onClicked: exportDialog.close()
                 }
             }
