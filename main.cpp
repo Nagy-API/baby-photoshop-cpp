@@ -7,7 +7,6 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     ImageProcessor imageProcessor;
 
     QQmlApplicationEngine engine;
