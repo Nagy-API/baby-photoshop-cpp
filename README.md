@@ -154,7 +154,7 @@ assets/samples/
 ## Project Structure
 
 ```text
-baby-photoshop-cpp/
+pixora-image-editor/
 ├── CMakeLists.txt
 ├── Image_Class.h
 ├── imageprocessor.cpp
